@@ -33,7 +33,7 @@ namespace UnitTestUsingXUnit.DataAccess
 
         public Task<bool> GetExistProductCategorysAsync(string productCategorys)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
     }
 }
