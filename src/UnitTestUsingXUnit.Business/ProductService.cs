@@ -7,12 +7,20 @@ namespace UnitTestUsingXUnit.Business
 {
     public class ProductService : IProductService
     {
+        #region Fields
         private readonly IProductRepository _productRepository;
 
+        #endregion Fields
+
+        #region Ctor
         public ProductService(IProductRepository productRepository)
         {
             this._productRepository = productRepository;
         }
+
+        #endregion Ctor
+
+        #region Methods
 
         public async Task<int> CreateProductAsync(CreateProduct createProduct)
         {
@@ -36,6 +44,8 @@ namespace UnitTestUsingXUnit.Business
         {
             return await _productRepository.GetProductsAsync();
         }
+
+        #endregion Methods
 
         #region Private Method 
 
