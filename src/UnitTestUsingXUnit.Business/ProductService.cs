@@ -1,22 +1,30 @@
-﻿using UnitTestUsingXUnit.Business.Dtos;
+﻿using UnitTestUsingXUnit.DataAccess;
+using UnitTestUsingXUnit.DataAccess.Dtos;
 
 namespace UnitTestUsingXUnit.Business
 {
     public class ProductService : IProductService
     {
-        public ProductService()
+        private readonly IProductRepository _productRepository;
+
+        public ProductService(IProductRepository productRepository)
         {
-            
+            this._productRepository = productRepository;
         }
 
-        public Task CreateProductAsync(CreateProduct createProduct)
+        public async Task<int> CreateProductAsync(CreateProduct createProduct)
         {
-            throw new NotImplementedException();
+           return await _productRepository.CreateProductAsync(createProduct);
         }
 
-        public Task<IEnumerable<ProductDto>> GetProductsAsync()
+        public async Task<ProductDto> GetProductAsync(int productId)
         {
-            throw new NotImplementedException();
+           return await _productRepository.GetProductAsync(productId);
+        }
+
+        public async Task<IEnumerable<ProductDto>> GetProductsAsync()
+        {
+            return await _productRepository.GetProductsAsync();
         }
     }
 }

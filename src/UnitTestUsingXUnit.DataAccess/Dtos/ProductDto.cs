@@ -1,5 +1,5 @@
 ﻿
-namespace UnitTestUsingXUnit.Business.Dtos
+namespace UnitTestUsingXUnit.DataAccess.Dtos
 {
     public class ProductDto
     {
