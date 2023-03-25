@@ -1,22 +1,23 @@
 ﻿using UnitTestUsingXUnit.DataAccess.Dtos;
+using UnitTestUsingXUnit.DataAccess.MockData;
 
 namespace UnitTestUsingXUnit.DataAccess
 {
     public class ProductRepository : IProductRepository
     {
-        public Task<int> CreateProductAsync(CreateProduct createProduct)
+        public async Task<int> CreateProductAsync(CreateProduct createProduct)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(ProductMockData.ProductId);
         }
 
-        public Task<ProductDto> GetProductAsync(int productId)
+        public async Task<ProductDto> GetProductAsync(int productId)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(ProductMockData.ProductDto);
         }
 
-        public Task<IEnumerable<ProductDto>> GetProductsAsync()
+        public async Task<IEnumerable<ProductDto>> GetProductsAsync()
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(ProductMockData.ProductDtoList);
         }
     }
 }
