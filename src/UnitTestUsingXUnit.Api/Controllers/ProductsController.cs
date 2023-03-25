@@ -8,11 +8,17 @@ namespace UnitTestUsingXUnit.Api.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        #region Fields
         private readonly IProductService _productService;
+        #endregion Fields
+        
+        #region Ctor
         public ProductsController(IProductService productService)
         {
             this._productService = productService;
         }
+
+        #endregion Ctor
 
         /// <summary>
         /// GetProductList

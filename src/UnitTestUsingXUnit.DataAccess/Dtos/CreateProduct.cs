@@ -1,4 +1,6 @@
-﻿namespace UnitTestUsingXUnit.DataAccess.Dtos
+﻿using UnitTestUsingXUnit.DataAccess.Enum;
+
+namespace UnitTestUsingXUnit.DataAccess.Dtos
 {
     public class CreateProduct
     {
@@ -6,7 +8,9 @@
 
         public string ProductTitle { get; set; }
 
-        public string ProductType { get; set; }
+        public ProductType ProductType { get; set; }
+
+        public List<ProductCategory> ProductCategorys { get; set; }
 
         public float ProductPrice { get; set; }
     }
