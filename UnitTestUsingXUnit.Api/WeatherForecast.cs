@@ -1,4 +1,4 @@
-namespace UnitTestUsingXUnit
+namespace UnitTestUsingXUnit.Api
 {
     public class WeatherForecast
     {

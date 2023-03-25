@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace UnitTestUsingXUnit.Controllers
+namespace UnitTestUsingXUnit.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
