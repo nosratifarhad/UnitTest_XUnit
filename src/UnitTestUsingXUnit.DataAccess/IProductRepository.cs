@@ -1,14 +1,13 @@
 ﻿using UnitTestUsingXUnit.DataAccess.Dtos;
 
-namespace UnitTestUsingXUnit.Business
+namespace UnitTestUsingXUnit.DataAccess
 {
-    public interface IProductService
-    {        
+    public interface IProductRepository
+    {
         Task<ProductDto> GetProductAsync(int productId);
 
         Task<IEnumerable<ProductDto>> GetProductsAsync();
 
         Task<int> CreateProductAsync(CreateProduct createProduct);
-
     }
 }
