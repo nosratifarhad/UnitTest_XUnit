@@ -8,17 +8,17 @@ namespace UnitTestUsingXUnit.DataAccess
     {
         public async Task<int> CreateProductAsync(CreateProduct createProduct)
         {
-            return await Task.FromResult(ProductMockData.ProductId);
+            return await Task.FromResult(ProductDataAccessMockData.ProductId);
         }
 
         public async Task<ProductDto> GetProductAsync(int productId)
         {
-            return await Task.FromResult(ProductMockData.ProductDto);
+            return await Task.FromResult(ProductDataAccessMockData.ProductDto);
         }
 
         public async Task<ProductDto> GetProductAsync(string productName)
         {
-            return await Task.FromResult(ProductMockData.ProductDto);
+            return await Task.FromResult(ProductDataAccessMockData.ProductDto);
         }
 
         public Task<bool> GetExistProductTypeAsync(ProductType productType)
@@ -28,7 +28,7 @@ namespace UnitTestUsingXUnit.DataAccess
 
         public async Task<IEnumerable<ProductDto>> GetProductsAsync()
         {
-            return await Task.FromResult(ProductMockData.ProductDtoList);
+            return await Task.FromResult(ProductDataAccessMockData.ProductDtoList);
         }
 
         public Task<bool> GetExistProductCategorysAsync(string productCategorys)
