@@ -12,10 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UnitTestUsingXUnit.Business\UnitTestUsingXUnit.Business.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Ioc\" />
+    <ProjectReference Include="..\UnitTestUsingXUnit.DataAccess\UnitTestUsingXUnit.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

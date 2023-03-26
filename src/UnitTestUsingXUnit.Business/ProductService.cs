@@ -56,7 +56,7 @@ namespace UnitTestUsingXUnit.Business
             // For example Repository returned
             var productDto = new ProductDto();
             if (createProduct.ProductName == "laptop")
-                productDto = ProductMockData.ProductDto;
+                productDto = ProductDataAccessMockData.ProductDto;
 
             #endregion TODO :"productDto" is For example Repository returned
 
@@ -92,8 +92,7 @@ namespace UnitTestUsingXUnit.Business
             
             #endregion TODO :"existProductCategory" is For example Repository returned
 
-            string categorys = ConvertProductCategoryListToJson(productCategorys);
-
+            //string categorys = ConvertProductCategoryListToJson(productCategorys);
             //var existProductCategory = await _productRepository.GetExistProductCategorysAsync(categorys).ConfigureAwait(false);
             if (!existProductCategory)
                 throw new Exception("Product Category Is In Exist");
@@ -106,7 +105,7 @@ namespace UnitTestUsingXUnit.Business
             // For example Repository returned
             var productDto = new ProductDto();
             if (productId == 1)
-                productDto = ProductMockData.ProductDto;
+                productDto = ProductDataAccessMockData.ProductDto;
 
             #endregion TODO :"productDto" is For example Repository returned
 

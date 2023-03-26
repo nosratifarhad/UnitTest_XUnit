@@ -2,7 +2,7 @@
 
 namespace UnitTestUsingXUnit.DataAccess.MockData
 {
-    public static class ProductMockData
+    public static class ProductDataAccessMockData
     {
         public static int ProductId { get { return 100; } }
 

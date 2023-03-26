@@ -38,7 +38,7 @@ namespace UnitTestUsingXUnit.Api.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("/api/v1/product")]
-        public async Task<IActionResult> CreateProduct(CreateProduct command)
+        public async Task<IActionResult> CreateProductAsync(CreateProduct command)
         {
             var productId = await _productService.CreateProductAsync(command);
 
