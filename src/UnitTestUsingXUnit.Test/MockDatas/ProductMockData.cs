@@ -21,5 +21,35 @@ namespace UnitTestUsingXUnit.Test.MockDatas
             }
         }
 
+        public static CreateProduct ValidCreateProduct
+        {
+            get
+            {
+                return new CreateProduct()
+                {
+                    ProductName = "laptop",
+                    ProductTitle = "laptop",
+                    ProductType = ProductType.None,
+                    ProductCategorys = new List<ProductCategory>() { ProductCategory.None },
+                    ProductPrice = 241564
+                };
+            }
+        }
+
+        public static CreateProduct InValidCreateProduct
+        {
+            get
+            {
+                return new CreateProduct()
+                {
+                    ProductName = "laptop 1.1",
+                    ProductTitle = "laptop 1.1",
+                    ProductType = ProductType.SoftProduct,
+                    ProductCategorys = new List<ProductCategory>() { ProductCategory.None},
+                    ProductPrice = 241564
+                };
+            }
+        }
+
     }
 }

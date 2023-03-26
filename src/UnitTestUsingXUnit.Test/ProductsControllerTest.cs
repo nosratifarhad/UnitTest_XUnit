@@ -1,14 +1,13 @@
 using System.Net.Mime;
-using System.Reflection;
 using System.Text.Json;
 using System.Text;
-using System;
 using UnitTestUsingXUnit.Test.MockDatas;
 using System.Net;
+using FluentAssertions;
 
 namespace UnitTestUsingXUnit.Test
 {
-    public class ProductsControllerTest: IClassFixture<StartupFactory>
+    public class ProductsControllerTest : IClassFixture<StartupFactory>
     {
         #region Fields
         private readonly HttpClient _httpClient;
@@ -23,9 +22,9 @@ namespace UnitTestUsingXUnit.Test
         #endregion Ctor
 
         [Fact]
-        public async Task When_ValidCreateProductInCreateProductAsyncthene_CreatedInDataBase()
+        public async Task When_ValidCreateProductInCreateProductAsyncthene_ShouldBeCreated()
         {
-            var createProduct = ProductMockData.DynamicCreateProduct;
+            var createProduct = ProductMockData.ValidCreateProduct;
 
             string uri = $"/api/v1/product";
 
@@ -34,10 +33,27 @@ namespace UnitTestUsingXUnit.Test
 
             var response = await _httpClient.PostAsync(uri, result);
 
-            response.EnsureSuccessStatusCode();
+            response.IsSuccessStatusCode.Should().BeTrue();
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+        }
 
-            //response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+
+        [Fact]
+        public async Task When_InValidCreateProductInCreateProductAsyncthene_ShouldBeCreated()
+        {
+            var createProduct = ProductMockData.InValidCreateProduct;
+
+            string uri = $"/api/v1/product";
+
+            var bodyStr = JsonSerializer.Serialize(createProduct);
+            var result = new StringContent(bodyStr, Encoding.UTF8, MediaTypeNames.Application.Json);
+
+            var response = await _httpClient.PostAsync(uri, result);
+
+            response.IsSuccessStatusCode.Should().BeFalse();
+            response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
 
         }
     }
+
 }

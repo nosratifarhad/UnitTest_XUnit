@@ -61,8 +61,8 @@ namespace UnitTestUsingXUnit.Business
             #endregion TODO :"productDto" is For example Repository returned
 
             //var productDto = await _productRepository.GetProductAsync(createProduct.ProductName).ConfigureAwait(false);
-            if (productDto != null)
-                throw new Exception("Product Name Is Exist");
+            if (productDto == null)
+                throw new Exception(message: "Product Name Is Exist");
         }
 
         private async Task GetExistProductTypeAsync(ProductType productType)
@@ -89,7 +89,7 @@ namespace UnitTestUsingXUnit.Business
             bool existProductCategory = false;
             if (productCategorys.Count() == 1)
                 existProductCategory = true;
-            
+
             #endregion TODO :"existProductCategory" is For example Repository returned
 
             //string categorys = ConvertProductCategoryListToJson(productCategorys);
