@@ -10,22 +10,18 @@ using System.Net.Http;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UnitTestUsingXUnit.Test
 {
-    public class ProductsControllerTest : IClassFixture<StartupFactory>
+    public class ProductsControllerTest : IClassFixture<IntegrationTestsFixture>
     {
-        #region Fields
-        private readonly HttpClient _httpClient;
-        private string _accessToken = string.Empty;
-        #endregion Fields
+        private readonly IntegrationTestsFixture fixture;
 
-        #region Ctor
-        public ProductsControllerTest(StartupFactory startupFactory)
+        public ProductsControllerTest(IntegrationTestsFixture fixture)
         {
-            _httpClient = startupFactory.CreateClient();
+            this.fixture = fixture;
         }
-        #endregion Ctor
 
         [Fact]
         public async Task When_ValidCreateProductInCreateProductAsyncthene_MustBeCreated()
@@ -35,7 +31,7 @@ namespace UnitTestUsingXUnit.Test
             string uri = $"/api/v1/product";
             
             var httpContent = CreateHttpContent(createProduct);
-
+            var _httpClient = fixture.CreateClient();
             var response = await _httpClient.PostAsync(uri, httpContent);
 
             response.IsSuccessStatusCode.Should().BeTrue();
@@ -62,13 +58,15 @@ namespace UnitTestUsingXUnit.Test
             string uri = $"/api/v1/product";
 
             var httpContent = CreateHttpContent(createProduct);
-
+           var _httpClient= fixture.CreateClient();
             // Act
-            var response = await _httpClient.PostAsync(uri, httpContent);
+            var response = await _httpClient.PostAsync(uri, httpContent).ConfigureAwait(false);
 
             // Assert
             response.IsSuccessStatusCode.Should().BeFalse();
             response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+            
+            var problem = await response.Content.ReadFromJsonAsync<object>().ConfigureAwait(false);
 
             //you can get exception message and compare here.
             ///exceptionMessage == "Product Name Is Exist";
