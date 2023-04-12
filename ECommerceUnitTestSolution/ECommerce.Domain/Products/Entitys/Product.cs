@@ -102,21 +102,21 @@ namespace ECommerce.Domain.Products.Entitys
 
         #region Builder
 
-        public Product CreateProduct(
-            string productName,
-            string productTitle,
-            string productDescription,
-            ProductCategory productCategory,
-            string mainImageName,
-            string mainImageTitle,
-            string mainImageUri,
-            ProductColor color,
-            bool isFreeDelivery,
-            List<Material> materials,
-            int weight)
-            => new Product(productName, productTitle, productDescription, productCategory,
-                mainImageName, mainImageTitle, mainImageUri, color,
-                isFreeDelivery,materials, weight);
+        //public Product CreateProduct(
+        //    string productName,
+        //    string productTitle,
+        //    string productDescription,
+        //    ProductCategory productCategory,
+        //    string mainImageName,
+        //    string mainImageTitle,
+        //    string mainImageUri,
+        //    ProductColor color,
+        //    bool isFreeDelivery,
+        //    List<Material> materials,
+        //    int weight)
+        //    => new Product(productName, productTitle, productDescription, productCategory,
+        //        mainImageName, mainImageTitle, mainImageUri, color,
+        //        isFreeDelivery,materials, weight);
 
         #endregion
     }

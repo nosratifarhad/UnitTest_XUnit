@@ -1,6 +1,9 @@
+using ECommerce.Api.IOC;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Service Register
+builder.Services.RegisterServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

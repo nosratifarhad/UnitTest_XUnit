@@ -26,8 +26,6 @@ namespace ECommerce.Service.ViewModels.ProductViewModels
 
         public bool IsExisting { get; set; }
 
-        public List<Material> Materials { get; set; }
-
         public int Weight { get; set; }
     }
 }
