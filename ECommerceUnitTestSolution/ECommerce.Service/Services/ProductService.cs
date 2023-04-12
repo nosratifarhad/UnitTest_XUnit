@@ -101,7 +101,6 @@ namespace ECommerce.Service.Services
                 Color = dto.Color,
                 IsExisting = dto.IsExisting,
                 IsFreeDelivery = dto.IsFreeDelivery,
-                Materials = dto.Materials,
                 Weight = dto.Weight
             };
 
@@ -125,7 +124,6 @@ namespace ECommerce.Service.Services
                          Color = ProductDto.Color,
                          IsExisting = ProductDto.IsExisting,
                          IsFreeDelivery = ProductDto.IsFreeDelivery,
-                         Materials = ProductDto.Materials,
                          Weight = ProductDto.Weight
                      });
 
