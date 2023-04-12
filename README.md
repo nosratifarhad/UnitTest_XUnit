@@ -21,12 +21,7 @@ private static ProductDto CreateFakerProductDto(int productId)
       .RuleFor(bp => bp.IsExisting, f => f.Random.Bool())
       .RuleFor(bp => bp.Weight, f => f.Random.Number());
 
-```csharp
 
-### And Use FluentAssertions For Handle Assert Tests Like This
-Note : You can See Excample Project In [This Repository](https://github.com/nosratifarhad/FluentValidation.git/).
-
-```csharp
 
 [Theory]
 [InlineData(1)]
