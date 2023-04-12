@@ -9,14 +9,17 @@ namespace ECommerce.Api.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        #region Fields
         private readonly IProductService _productService;
+        #endregion Fields
 
+        #region Ctor
         public ProductsController(IProductService productService)
         {
-
-            _productService = productService;
-
+           this._productService = productService;
         }
+
+        #endregion Ctor
 
         /// <summary>
         /// Get Product List

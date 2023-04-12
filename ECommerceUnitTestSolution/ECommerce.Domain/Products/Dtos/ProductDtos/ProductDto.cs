@@ -1,8 +1,8 @@
 ﻿using ECommerce.Domain.Products.Enums;
 
-namespace ECommerce.Service.InputModels.ProductInputModels
+namespace ECommerce.Domain.Products.Dtos.ProductDtos
 {
-    public class UpdateProductInputModel
+    public class ProductDto
     {
         public int ProductId { get; set; }
 
@@ -29,6 +29,5 @@ namespace ECommerce.Service.InputModels.ProductInputModels
         public List<Material> Materials { get; set; }
 
         public int Weight { get; set; }
-
     }
 }

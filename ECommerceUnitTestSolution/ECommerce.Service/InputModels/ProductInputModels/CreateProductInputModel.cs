@@ -1,9 +1,12 @@
-﻿using ECommerce.Domain.Products.Enums;
+﻿using ECommerce.Domain.Products.Entitys;
+using ECommerce.Domain.Products.Enums;
 
 namespace ECommerce.Service.InputModels.ProductInputModels
 {
     public class CreateProductInputModel
     {
+        public string ProductName { get; set; }
+
         public string ProductTitle { get; set; }
 
         public string ProductDescription { get; set; }
@@ -19,6 +22,8 @@ namespace ECommerce.Service.InputModels.ProductInputModels
         public ProductColor Color { get; set; }
 
         public bool IsFreeDelivery { get; set; }
+
+        public bool IsExisting { get; set; }
 
         public List<Material> Materials { get; set; }
 
