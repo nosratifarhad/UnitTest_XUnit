@@ -28,6 +28,8 @@ namespace ECommerce.Infra.Repositorys
             return await Task.FromResult(false);
         }
 
+        #region FakeData
+
         private static ProductDto CreateFakerProductDto(int productId)
            => new Faker<ProductDto>()
               .RuleFor(bp => bp.ProductId, productId)
@@ -58,5 +60,6 @@ namespace ECommerce.Infra.Repositorys
               .RuleFor(bp => bp.IsExisting, f => f.Random.Bool())
               .RuleFor(bp => bp.Weight, f => f.Random.Number()).Generate(5);
 
+        #endregion FakeData
     }
 }
