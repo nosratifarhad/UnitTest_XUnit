@@ -9,7 +9,7 @@ namespace ECommerce.Infra.Repositorys
     {
         public async Task<ProductDto> GetProductAsync(int productId)
         {
-            if (productId <= 5)
+            if (productId < 5)
                 return await Task.FromResult(CreateFakerProductDto(productId));
 
             return await Task.FromResult(new ProductDto());
@@ -22,7 +22,7 @@ namespace ECommerce.Infra.Repositorys
 
         public async Task<bool> IsExistProductAsync(int productId)
         {
-            if (productId <= 5)
+            if (productId < 5)
                 return await Task.FromResult(true);
 
             return await Task.FromResult(false);
