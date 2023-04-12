@@ -24,25 +24,24 @@ private static ProductDto CreateFakerProductDto(int productId)
 ```csharp
 
 ### And Use FluentAssertions For Handle Assert Tests Like This
+Note : You can See Excample Project In [This Repository](https://github.com/nosratifarhad/FluentValidation.git/).
 
 ```csharp
-//[Theory]
-//[InlineData(1)]
-//[InlineData(2)]
-//[InlineData(3)]
-//public async void When_ValidProductIdInGetProductAsync_Then_ReturnedProductViewModel(int productId)
-//{
-   //var productReadRepository = new ProductReadRepository();
+[Theory]
+[InlineData(1)]
+[InlineData(2)]
+[InlineData(3)]
+public async void When_ValidProductIdInGetProductAsync_Then_ReturnedProductViewModel(int productId)
+{
+   var productReadRepository = new ProductReadRepository();
 
-   //var productViewModel = await productReadRepository.GetProductAsync(productId).ConfigureAwait(false);
+   var productViewModel = await productReadRepository.GetProductAsync(productId).ConfigureAwait(false);
 
    productViewModel.ProductId.Should().Be(productId);
    productViewModel.ProductName.Should().NotBeNull();
    productViewModel.ProductTitle.Should().NotBeNull();
    productViewModel.Should().NotBeNull();
-   
-//}
-
+}
 ```csharp
 
 ![My Remote Image](https://github.com/nosratifarhad/UnitTest_XUnit_Mock_Faker/blob/main/doc/runresult.png)
