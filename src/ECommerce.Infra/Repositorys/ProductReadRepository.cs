@@ -10,7 +10,7 @@ namespace ECommerce.Infra.Repositorys
         public async Task<ProductDto> GetProduct(int productId)
         {
             if (productId <= 5)
-                return await Task.FromResult(CreateFakerProductDto());
+                return await Task.FromResult(CreateFakerProductDto(productId));
 
             return await Task.FromResult(new ProductDto());
         }
@@ -28,9 +28,9 @@ namespace ECommerce.Infra.Repositorys
             return await Task.FromResult(false);
         }
 
-        private static ProductDto CreateFakerProductDto()
+        private static ProductDto CreateFakerProductDto(int productId)
            => new Faker<ProductDto>()
-              .RuleFor(bp => bp.ProductId, f => f.Random.Number())
+              .RuleFor(bp => bp.ProductId, productId)
               .RuleFor(bp => bp.ProductName, f => f.Name.FirstName())
               .RuleFor(bp => bp.ProductTitle, f => f.Name.JobTitle())
               .RuleFor(bp => bp.ProductDescription, f => f.Name.JobDescriptor())

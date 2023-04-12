@@ -27,7 +27,7 @@ namespace ECommerce.Api.Controllers
         [HttpGet("/api/products")]
         public async Task<IActionResult> GetProducts()
         {
-            var productVMs = await _productService.GetProducts().ConfigureAwait(false);
+            var productVMs = await _productService.GetProductsAsync().ConfigureAwait(false);
             
             return Ok(productVMs);
         }
@@ -53,7 +53,7 @@ namespace ECommerce.Api.Controllers
         [HttpGet("/api/product/{productId:int}", Name = nameof(GetProduct))]
         public async Task<IActionResult> GetProduct(int productId)
         {
-            var product =await _productService.GetProduct(productId).ConfigureAwait(false);
+            var product =await _productService.GetProductAsync(productId).ConfigureAwait(false);
 
             return Ok(product);
         }

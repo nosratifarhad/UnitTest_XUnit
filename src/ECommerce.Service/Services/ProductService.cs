@@ -4,9 +4,6 @@ using ECommerce.Domain.Products.Entitys;
 using ECommerce.Service.Contract;
 using ECommerce.Service.InputModels.ProductInputModels;
 using ECommerce.Service.ViewModels.ProductViewModels;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace ECommerce.Service.Services
 {
@@ -29,16 +26,18 @@ namespace ECommerce.Service.Services
 
         #region Implement
 
-        public async Task<ProductViewModel> GetProduct(int productId)
+        public async Task<ProductViewModel> GetProductAsync(int productId)
         {
             var productDto = await _productReadRepository.GetProduct(productId).ConfigureAwait(false);
+            if (productDto == null)
+                return new ProductViewModel();
 
             var productViewModel = CreateProductViewModelFromProductDto(productDto);
 
             return productViewModel;
         }
 
-        public async Task<IEnumerable<ProductViewModel>> GetProducts()
+        public async Task<IEnumerable<ProductViewModel>> GetProductsAsync()
         {
             var productDtos = await _productReadRepository.GetProducts().ConfigureAwait(false);
             if (productDtos == null || productDtos.Count() == 0)
@@ -75,6 +74,8 @@ namespace ECommerce.Service.Services
 
         public async Task DeleteProductAsync(int productId)
         {
+            await IsExistProduct(productId).ConfigureAwait(false);
+
             await _productWriteRepository.DeleteProductAsync(productId).ConfigureAwait(false);
         }
 
