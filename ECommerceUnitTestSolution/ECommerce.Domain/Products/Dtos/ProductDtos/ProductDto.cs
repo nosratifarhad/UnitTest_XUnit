@@ -26,8 +26,6 @@ namespace ECommerce.Domain.Products.Dtos.ProductDtos
 
         public bool IsExisting { get; set; }
 
-        public List<Material> Materials { get; set; }
-
         public int Weight { get; set; }
     }
 }
