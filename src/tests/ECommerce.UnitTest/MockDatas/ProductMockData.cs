@@ -1,4 +1,6 @@
 ﻿using Bogus;
+using ECommerce.Domain.Products.Dtos.ProductDtos;
+using ECommerce.Domain.Products.Entitys;
 using ECommerce.Domain.Products.Enums;
 using ECommerce.Service.InputModels.ProductInputModels;
 
@@ -8,7 +10,7 @@ namespace ECommerce.UnitTest.MockDatas
     {
         public const int Zero = 0;
 
-        public const int NegativeOne =-1;
+        public const int NegativeOne = -1;
 
         #region [ CreateProductInputModel ]
         public static CreateProductInputModel ProductNameIsNullInC1reateProductInputModel()
@@ -60,7 +62,7 @@ namespace ECommerce.UnitTest.MockDatas
 
         public static UpdateProductInputModel ValidUpdateProductInputModel()
             => new Faker<UpdateProductInputModel>()
-              .RuleFor(bp => bp.ProductId, f => f.Random.Number(1,5))
+              .RuleFor(bp => bp.ProductId, f => f.Random.Number(1, 5))
               .RuleFor(bp => bp.ProductName, f => f.Name.FirstName())
               .RuleFor(bp => bp.ProductTitle, f => f.Name.JobTitle())
               .RuleFor(bp => bp.ProductDescription, f => f.Name.JobDescriptor())
@@ -150,6 +152,40 @@ namespace ECommerce.UnitTest.MockDatas
 
 
         #endregion [ UpdateProductInputModel ]
+
+        #region [ Product ]
+
+        public static Product CreateProduct()
+             => new Product(
+                 new Faker().Name.FindName(), 
+                 new Faker().Name.JobTitle(), 
+                 string.Empty, 
+                 ProductCategory.None, 
+                 string.Empty, 
+                 string.Empty, 
+                 string.Empty, 
+                 ProductColor.None, 
+                 false, 
+                 false, 
+                 0);
+
+        public static Product UpdateProduct()
+             => new Product(
+                 new Faker().Random.Number(1,5),
+                 new Faker().Name.FindName(),
+                 new Faker().Name.JobTitle(),
+                 string.Empty,
+                 ProductCategory.None,
+                 string.Empty,
+                 string.Empty,
+                 string.Empty,
+                 ProductColor.None,
+                 false,
+                 false,
+                 0);
+
+
+        #endregion [ Product ]
 
     }
 }

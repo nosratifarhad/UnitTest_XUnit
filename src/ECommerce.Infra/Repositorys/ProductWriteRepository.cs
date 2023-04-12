@@ -9,7 +9,7 @@ namespace ECommerce.Infra.Repositorys
         public async Task<int> CreateProductAsync(Product product)
         {
             await Task.Delay(1000);
-            return await Task.FromResult(new Faker().Random.Number(1, 20));
+            return await Task.FromResult(new Faker().Random.Number(1, 5));
         }
 
         public async Task DeleteProductAsync(int productId)

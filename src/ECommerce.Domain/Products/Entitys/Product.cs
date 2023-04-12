@@ -4,37 +4,37 @@ namespace ECommerce.Domain.Products.Entitys
 {
     public class Product
     {
-        public int ProductId { get; set; }
+        public int ProductId { get; private set; }
 
-        public string ProductName { get; set; }
+        public string ProductName { get; private set; }
 
-        public string ProductTitle { get; set; }
+        public string ProductTitle { get; private set; }
 
-        public string? ProductDescription { get; set; }
+        public string? ProductDescription { get; private set; }
 
-        public ProductCategory? ProductCategory { get; set; }
+        public ProductCategory? ProductCategory { get; private set; }
 
-        public string? MainImageName { get; set; }
+        public string? MainImageName { get; private set; }
 
-        public string? MainImageTitle { get; set; }
+        public string? MainImageTitle { get; private set; }
 
-        public string? MainImageUri { get; set; }
+        public string? MainImageUri { get; private set; }
 
-        public List<ProductImage>? ImagesUri { get; set; }
+        public List<ProductImage>? ImagesUri { get; private set; }
 
-        public ProductColor? Color { get; set; }
+        public ProductColor? Color { get; private set; }
 
-        public bool IsFreeDelivery { get; set; }
+        public bool IsFreeDelivery { get; private set; }
 
-        public bool IsExisting { get; set; }
+        public bool IsExisting { get; private set; }
 
-        public float? Price { get; set; }
+        public float? Price { get; private set; }
 
-        public float? OffPrice { get; set; }
+        public float? OffPrice { get; private set; }
 
-        public List<Material>? Materials { get; set; }
+        public List<Material>? Materials { get; private set; }
 
-        public int? Weight { get; set; }
+        public int? Weight { get; private set; }
 
         #region Ctor
 
