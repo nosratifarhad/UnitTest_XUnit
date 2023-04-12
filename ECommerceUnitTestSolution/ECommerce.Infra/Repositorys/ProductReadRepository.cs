@@ -1,37 +1,34 @@
 ﻿using Bogus;
 using ECommerce.Domain.Products;
 using ECommerce.Domain.Products.Dtos.ProductDtos;
-using ECommerce.Domain.Products.Entitys;
 using ECommerce.Domain.Products.Enums;
-using System.Data;
 
 namespace ECommerce.Infra.Repositorys
 {
     public class ProductReadRepository : IProductReadRepository
     {
-        public Task<ProductDto> GetProduct(int productId)
+        public async Task<ProductDto> GetProduct(int productId)
         {
             if (productId <= 5)
-                return Task.FromResult(CreateFakerProductDto());
+                return await Task.FromResult(CreateFakerProductDto());
 
-            return Task.FromResult(new ProductDto());
+            return await Task.FromResult(new ProductDto());
         }
 
-        public Task<IEnumerable<ProductDto>> GetProducts()
+        public async Task<IEnumerable<ProductDto>> GetProducts()
         {
-            return Task.FromResult((IEnumerable<ProductDto>)CreateFakerProductDtos());
+            return await Task.FromResult((IEnumerable<ProductDto>)CreateFakerProductDtos());
         }
 
-        public Task<bool> IsExistProduct(int productId)
+        public async Task<bool> IsExistProduct(int productId)
         {
             if (productId <= 5)
-                return Task.FromResult(true);
+                return await Task.FromResult(true);
 
-            return Task.FromResult(false);
+            return await Task.FromResult(false);
         }
 
-
-        public static ProductDto CreateFakerProductDto()
+        private static ProductDto CreateFakerProductDto()
            => new Faker<ProductDto>()
               .RuleFor(bp => bp.ProductId, f => f.Random.Number())
               .RuleFor(bp => bp.ProductName, f => f.Name.FirstName())
@@ -46,7 +43,7 @@ namespace ECommerce.Infra.Repositorys
               .RuleFor(bp => bp.IsExisting, f => f.Random.Bool())
               .RuleFor(bp => bp.Weight, f => f.Random.Number());
 
-        public static List<ProductDto> CreateFakerProductDtos()
+        private static List<ProductDto> CreateFakerProductDtos()
            => new Faker<ProductDto>()
               .RuleFor(bp => bp.ProductId, f => f.Random.Number())
               .RuleFor(bp => bp.ProductName, f => f.Name.FirstName())
@@ -60,7 +57,6 @@ namespace ECommerce.Infra.Repositorys
               .RuleFor(bp => bp.IsFreeDelivery, f => f.Random.Bool())
               .RuleFor(bp => bp.IsExisting, f => f.Random.Bool())
               .RuleFor(bp => bp.Weight, f => f.Random.Number()).Generate(5);
-
 
     }
 }

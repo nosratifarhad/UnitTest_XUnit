@@ -1,23 +1,25 @@
-﻿using ECommerce.Domain.Products;
+﻿using Bogus;
+using ECommerce.Domain.Products;
 using ECommerce.Domain.Products.Entitys;
 
 namespace ECommerce.Infra.Repositorys
 {
     public class ProductWriteRepository : IProductWriteRepository
     {
-        public Task<int> CreateProductAsync(Product product)
+        public async Task<int> CreateProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            await Task.Delay(1000);
+            return await Task.FromResult(new Faker().Random.Number(1, 20));
         }
 
-        public Task DeleteProductAsync(int productId)
+        public async Task DeleteProductAsync(int productId)
         {
-            throw new NotImplementedException();
+            await Task.Delay(1000);
         }
 
-        public Task UpdateProductAsync(Product product)
+        public async Task UpdateProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            await Task.Delay(1000);
         }
     }
 }
