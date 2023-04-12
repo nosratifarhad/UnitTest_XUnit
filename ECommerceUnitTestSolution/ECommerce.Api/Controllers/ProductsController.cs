@@ -1,6 +1,5 @@
 ﻿using ECommerce.Service.Contract;
 using ECommerce.Service.InputModels.ProductInputModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers
@@ -34,7 +33,7 @@ namespace ECommerce.Api.Controllers
         }
 
         /// <summary>
-        /// CreateProduct
+        /// Create Product
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
@@ -47,7 +46,7 @@ namespace ECommerce.Api.Controllers
         }
 
         /// <summary>
-        /// GetProduct
+        /// Get Product
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
@@ -89,75 +88,5 @@ namespace ECommerce.Api.Controllers
             return NoContent();
         }
 
-        ///// <summary>
-        ///// Upsert Product Picture
-        ///// </summary>
-        ///// <param name="productId"></param>
-        ///// <param name="command"></param>
-        ///// <returns></returns>
-        //[HttpPut("/api/v1/product/{productId:int}/picture")]
-        //public async Task<IActionResult> UpsertProductPicture(int productId, ProductPictureCommand command)
-        //{
-        //    if (productId != command.ProductId)
-        //        return BadRequest("Bad Request Message");
-
-        //    return CreatedAtRoute(nameof(GetProductPicture), new { productId = productId }, new { ProductId = productId });
-        //}
-
-        ///// <summary>
-        ///// Get Product Picture
-        ///// </summary>
-        ///// <param name="productId"></param>
-        ///// <returns></returns>
-        //[HttpGet("/api/v1/product/{productId:int}/picture", Name = nameof(GetProductPicture))]
-        //public async Task<IActionResult> GetProductPicture(int productId)
-        //{
-        //    List<ProductPictureVM> productPictureVMs = ProductPictureMockData.ProductPictureVMs;
-
-        //    return Ok(productPictureVMs);
-        //}
-
-        ///// <summary>
-        ///// Create Product Price
-        ///// </summary>
-        ///// <param name="productId"></param>
-        ///// <param name="command"></param>
-        ///// <returns></returns>
-        //[HttpPost("/api/v1/product/{productId:int}/price")]
-        //public async Task<IActionResult> CreateProductPrice(int productId, CreateProductPriceCommand command)
-        //{
-        //    if (productId != command.ProductId)
-        //        return BadRequest("Bad Request Message");
-
-        //    return CreatedAtRoute(nameof(GetProductPrice), new { productId = productId }, new { ProductId = productId });
-        //}
-
-        ///// <summary>
-        ///// Get Product Price
-        ///// </summary>
-        ///// <param name="productId"></param>
-        ///// <returns></returns>
-        //[HttpGet("/api/v1/product/{productId:int}/price", Name = nameof(GetProductPrice))]
-        //public async Task<IActionResult> GetProductPrice(int productId)
-        //{
-        //    ProductPriceVM productPriceVM = ProductPriceMockData.productPriceVMMockData;
-
-        //    return Ok(productPriceVM);
-        //}
-
-        ///// <summary>
-        ///// Update Product Price
-        ///// </summary>
-        ///// <param name="productId"></param>
-        ///// <param name="command"></param>
-        ///// <returns></returns>
-        //[HttpPut("/api/v1/product/{productId:int}/price")]
-        //public async Task<IActionResult> UpdateProductPrice(int productId, UpdateProductPriceCommand command)
-        //{
-        //    if (productId != command.ProductId)
-        //        return BadRequest("Bad Request Message");
-
-        //    return NoContent();
-        //}
     }
 }
