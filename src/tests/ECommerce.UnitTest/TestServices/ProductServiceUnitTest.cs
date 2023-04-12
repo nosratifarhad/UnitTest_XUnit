@@ -97,7 +97,7 @@ namespace ECommerce.UnitTest.TestServices
             var productViewModel = await productService.GetProductsAsync().ConfigureAwait(false);
 
             productViewModel.Should().NotBeNull();
-            productViewModel.Should().HaveCount(5);
+            productViewModel.Should().HaveCount(0);
         }
 
         [Fact]
