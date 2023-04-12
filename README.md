@@ -21,6 +21,7 @@ private static ProductDto CreateFakerProductDto(int productId)
       .RuleFor(bp => bp.IsFreeDelivery, f => f.Random.Bool())
       .RuleFor(bp => bp.IsExisting, f => f.Random.Bool())
       .RuleFor(bp => bp.Weight, f => f.Random.Number());
+
 ```csharp
 
 ![My Remote Image](https://github.com/nosratifarhad/UnitTest_XUnit_Mock_Faker/blob/main/doc/runresult.png)
