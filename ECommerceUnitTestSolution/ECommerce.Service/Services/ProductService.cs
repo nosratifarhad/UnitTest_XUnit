@@ -4,7 +4,9 @@ using ECommerce.Domain.Products.Entitys;
 using ECommerce.Service.Contract;
 using ECommerce.Service.InputModels.ProductInputModels;
 using ECommerce.Service.ViewModels.ProductViewModels;
-using System.Net.Http.Headers;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace ECommerce.Service.Services
 {
@@ -24,6 +26,9 @@ namespace ECommerce.Service.Services
         }
 
         #endregion Ctor
+
+        #region Implement
+
         public async Task<ProductViewModel> GetProduct(int productId)
         {
             var productDto = await _productReadRepository.GetProduct(productId).ConfigureAwait(false);
@@ -36,6 +41,8 @@ namespace ECommerce.Service.Services
         public async Task<IEnumerable<ProductViewModel>> GetProducts()
         {
             var productDtos = await _productReadRepository.GetProducts().ConfigureAwait(false);
+            if (productDtos == null || productDtos.Count() == 0)
+                return Enumerable.Empty<ProductViewModel>();
 
             var productViewModels = CreateProductViewModelsFromProductDtos(productDtos);
 
@@ -51,6 +58,8 @@ namespace ECommerce.Service.Services
 
         public async Task UpdateProductAsync(UpdateProductInputModel inputModel)
         {
+            await IsExistProduct(inputModel.ProductId).ConfigureAwait(false);
+
             var productEntoty = CreateProductEntityFromInputModel(inputModel);
 
             await _productWriteRepository.UpdateProductAsync(productEntoty).ConfigureAwait(false);
@@ -61,8 +70,16 @@ namespace ECommerce.Service.Services
             await _productWriteRepository.DeleteProductAsync(productId).ConfigureAwait(false);
         }
 
+        #endregion Implement
 
         #region Private
+
+        private async Task IsExistProduct(int productId)
+        {
+            var isExistProduct = await _productReadRepository.IsExistProduct(productId).ConfigureAwait(false);
+            if (isExistProduct == false)
+                throw new Exception("productId Is Not Found.");
+        }
 
         private Product CreateProductEntityFromInputModel(CreateProductInputModel inputModel)
             => new Product(inputModel.ProductName, inputModel.ProductTitle, inputModel.ProductDescription, inputModel.ProductCategory, inputModel.MainImageName, inputModel.MainImageTitle, inputModel.MainImageUri, inputModel.Color, inputModel.IsExisting, inputModel.IsFreeDelivery, inputModel.Materials, inputModel.Weight);
