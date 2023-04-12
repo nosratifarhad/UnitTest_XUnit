@@ -28,6 +28,9 @@ namespace ECommerce.Service.Services
 
         public async Task<ProductViewModel> GetProductAsync(int productId)
         {
+            if (productId <= 0)
+                throw new ArgumentException("Product Id Is Invalid");
+
             var productDto = await _productReadRepository.GetProduct(productId).ConfigureAwait(false);
             if (productDto == null)
                 return new ProductViewModel();
