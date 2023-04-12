@@ -31,7 +31,7 @@ namespace ECommerce.Service.Services
             if (productId <= 0)
                 throw new ArgumentException("Product Id Is Invalid");
 
-            var productDto = await _productReadRepository.GetProduct(productId).ConfigureAwait(false);
+            var productDto = await _productReadRepository.GetProductAsync(productId).ConfigureAwait(false);
             if (productDto == null)
                 return new ProductViewModel();
 
@@ -42,7 +42,8 @@ namespace ECommerce.Service.Services
 
         public async Task<IEnumerable<ProductViewModel>> GetProductsAsync()
         {
-            var productDtos = await _productReadRepository.GetProducts().ConfigureAwait(false);
+            var productDtos = await _productReadRepository.GetProductsAsync().ConfigureAwait(false);
+
             if (productDtos == null || productDtos.Count() == 0)
                 return Enumerable.Empty<ProductViewModel>();
 
@@ -88,7 +89,7 @@ namespace ECommerce.Service.Services
 
         private async Task IsExistProduct(int productId)
         {
-            var isExistProduct = await _productReadRepository.IsExistProduct(productId).ConfigureAwait(false);
+            var isExistProduct = await _productReadRepository.IsExistProductAsync(productId).ConfigureAwait(false);
             if (isExistProduct == false)
                 throw new Exception("productId Is Not Found.");
         }
