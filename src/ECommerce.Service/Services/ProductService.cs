@@ -65,6 +65,9 @@ namespace ECommerce.Service.Services
 
         public async Task UpdateProductAsync(UpdateProductInputModel inputModel)
         {
+            if (inputModel.ProductId <= 0)
+                throw new ArgumentException("ProductId Is Invalid.");
+
             ValidateProductName(inputModel.ProductName);
 
             ValidateProductTitle(inputModel.ProductTitle);
@@ -91,7 +94,7 @@ namespace ECommerce.Service.Services
         {
             var isExistProduct = await _productReadRepository.IsExistProductAsync(productId).ConfigureAwait(false);
             if (isExistProduct == false)
-                throw new Exception("productId Is Not Found.");
+                throw new ArgumentException("productId Is Not Found.");
         }
 
         private Product CreateProductEntityFromInputModel(CreateProductInputModel inputModel)

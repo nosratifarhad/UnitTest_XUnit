@@ -5,8 +5,6 @@ using FluentAssertions;
 using ECommerce.Domain.Products.Dtos.ProductDtos;
 using ECommerce.UnitTest.MockDatas;
 using ECommerce.Domain.Products.Entitys;
-using Bogus.DataSets;
-using ECommerce.Service.InputModels.ProductInputModels;
 
 namespace ECommerce.UnitTest.TestServices
 {
@@ -126,6 +124,24 @@ namespace ECommerce.UnitTest.TestServices
         #region [ CreateProductAsync ]
 
         [Fact]
+        public async void When_ValidCreateProductInputModelInCreateProductAsync_Then_ReturnCreatedProductId()
+        {
+            var MoqProductReadRepository = new Mock<IProductReadRepository>();
+            var MoqProductWriteRepository = new Mock<IProductWriteRepository>();
+
+            MoqProductWriteRepository.Setup(p => p.CreateProductAsync(It.IsAny<Product>())).ReturnsAsync(1);
+
+            var ProductService = new ProductService(MoqProductReadRepository.Object, MoqProductWriteRepository.Object);
+
+            var validC1reateProductInputModel = ProductMockData.ValidCreateProductInputModel();
+
+            var response = await ProductService.CreateProductAsync(validC1reateProductInputModel).ConfigureAwait(false);
+
+            response.Should().Be(1);
+            response.Should().NotBe(0);
+        }
+
+        [Fact]
         public async void When_ProductNameIsNullInC1reateProductInputModelInCreateProductAsync_Then_ProductNameMustNotBeEmptyThrowException()
         {
             var MoqProductReadRepository = new Mock<IProductReadRepository>();
@@ -163,25 +179,150 @@ namespace ECommerce.UnitTest.TestServices
             exception.Message.Should().Be("Product Title must not be empty (Parameter 'productTitle')");
         }
 
+        #endregion [ CreateProductAsync ]
+
+        #region [ UpdateProductAsync ]
+
         [Fact]
-        public async void When_ValidCreateProductInputModelInCreateProductAsync_Then_ReturnCreatedProductId()
+        public async void When_ValidUpdateProductInputModelInUpdateProductAsync_Then_UpdatedDatabase()
         {
             var MoqProductReadRepository = new Mock<IProductReadRepository>();
             var MoqProductWriteRepository = new Mock<IProductWriteRepository>();
 
-            MoqProductWriteRepository.Setup(p => p.CreateProductAsync(It.IsAny<Product>())).ReturnsAsync(1);
+            var validUpdateProductInputModel = ProductMockData.ValidUpdateProductInputModel();
+
+            MoqProductReadRepository.Setup(p => p.GetProductAsync(It.IsAny<int>()))
+                .ReturnsAsync(
+                new ProductDto() 
+                { 
+                    ProductId = validUpdateProductInputModel.ProductId ,
+                    ProductName = validUpdateProductInputModel.ProductName ,
+                    ProductTitle = validUpdateProductInputModel.ProductTitle ,
+                });
+
+            MoqProductReadRepository.Setup(p => p.IsExistProductAsync(It.IsAny<int>())).ReturnsAsync(true);
+
+            MoqProductWriteRepository.Setup(p => p.UpdateProductAsync(It.IsAny<Product>()));
 
             var ProductService = new ProductService(MoqProductReadRepository.Object, MoqProductWriteRepository.Object);
 
-            var invalidC1reateProductInputModel = ProductMockData.ValidCreateProductInputModel();
 
-            var response = await ProductService.CreateProductAsync(invalidC1reateProductInputModel).ConfigureAwait(false);
+            await ProductService.UpdateProductAsync(validUpdateProductInputModel).ConfigureAwait(false);
 
-            response.Should().Be(1);
-            response.Should().NotBe(0);
+            var productViewModel = await ProductService.GetProductAsync(validUpdateProductInputModel.ProductId).ConfigureAwait(false);
+
+            productViewModel.ProductId.Should().Be(validUpdateProductInputModel.ProductId);
+            productViewModel.ProductName.Should().Be(validUpdateProductInputModel.ProductName);
+            productViewModel.ProductTitle.Should().Be(validUpdateProductInputModel.ProductTitle);
         }
 
-        #endregion [ CreateProductAsync ]
+        [Fact]
+        public async void When_InValidProductIdInUpdateProductInputModelInUpdateProductAsync_Then_productIdIsNotFoundThrowException()
+        {
+            var MoqProductReadRepository = new Mock<IProductReadRepository>();
+            var MoqProductWriteRepository = new Mock<IProductWriteRepository>();
 
+            MoqProductReadRepository.Setup(p => p.IsExistProductAsync(It.IsAny<int>())).ReturnsAsync(false);
+
+            MoqProductWriteRepository.Setup(p => p.UpdateProductAsync(It.IsAny<Product>()));
+
+            var ProductService = new ProductService(MoqProductReadRepository.Object, MoqProductWriteRepository.Object);
+
+            var invalidUpdateProductInputModel = ProductMockData.InValidProductIdInUpdateProductInputModel();
+ 
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
+                async () =>
+                {
+                    await ProductService.UpdateProductAsync(invalidUpdateProductInputModel).ConfigureAwait(false);
+                });
+
+            exception.Message.Should().Be("productId Is Not Found.");
+        }
+
+        [Fact]
+        public async void When_ZeroProductIdInUpdateProductInputModelInUpdateProductAsync_Then_ProductIdIsInValidThrowException()
+        {
+            var MoqProductReadRepository = new Mock<IProductReadRepository>();
+            var MoqProductWriteRepository = new Mock<IProductWriteRepository>();
+
+            MoqProductWriteRepository.Setup(p => p.UpdateProductAsync(It.IsAny<Product>()));
+
+            var ProductService = new ProductService(MoqProductReadRepository.Object, MoqProductWriteRepository.Object);
+
+            var invalidUpdateProductInputModel = ProductMockData.ZeroProductIdInUpdateProductInputModel();
+
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
+                async () =>
+                {
+                    await ProductService.UpdateProductAsync(invalidUpdateProductInputModel).ConfigureAwait(false);
+                });
+
+            exception.Message.Should().Be("ProductId Is Invalid.");
+        }
+
+        [Fact]
+        public async void When_NegativeOneProductIdInUpdateProductInputModelInUpdateProductAsync_Then_ProductIdIsInValidThrowException()
+        {
+            var MoqProductReadRepository = new Mock<IProductReadRepository>();
+            var MoqProductWriteRepository = new Mock<IProductWriteRepository>();
+
+            MoqProductWriteRepository.Setup(p => p.UpdateProductAsync(It.IsAny<Product>()));
+
+            var ProductService = new ProductService(MoqProductReadRepository.Object, MoqProductWriteRepository.Object);
+
+            var invalidUpdateProductInputModel = ProductMockData.NegativeOneProductIdInUpdateProductInputModel();
+
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
+                async () =>
+                {
+                    await ProductService.UpdateProductAsync(invalidUpdateProductInputModel).ConfigureAwait(false);
+                });
+
+            exception.Message.Should().Be("ProductId Is Invalid.");
+        }
+
+        [Fact]
+        public async void When_ProductNameIsNullInUpdateProductInputModelInUpdateProductAsync_Then_ProductNameMustNotBeEmptyThrowException()
+        {
+            var MoqProductReadRepository = new Mock<IProductReadRepository>();
+            var MoqProductWriteRepository = new Mock<IProductWriteRepository>();
+
+            MoqProductWriteRepository.Setup(p => p.UpdateProductAsync(It.IsAny<Product>()));
+
+            var ProductService = new ProductService(MoqProductReadRepository.Object, MoqProductWriteRepository.Object);
+
+            var invalidUpdateProductInputModel = ProductMockData.ProductNameIsNullInUpdateProductInputModel();
+
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(
+            async () =>
+            {
+                await ProductService.UpdateProductAsync(invalidUpdateProductInputModel).ConfigureAwait(false);
+            });
+
+            exception.Message.Should().Be("Product Name must not be empty (Parameter 'productName')");
+        }
+
+        [Fact]
+        public async void When_ProductTitleIsNullInUpdateProductInputModelInUpdateProductAsync_Then_ProductTitleMustNotBeEmptyThrowException()
+        {
+            var MoqProductReadRepository = new Mock<IProductReadRepository>();
+            var MoqProductWriteRepository = new Mock<IProductWriteRepository>();
+
+            MoqProductWriteRepository.Setup(p => p.UpdateProductAsync(It.IsAny<Product>()));
+
+            var ProductService = new ProductService(MoqProductReadRepository.Object, MoqProductWriteRepository.Object);
+
+            var invalidUpdateProductInputModel = ProductMockData.ProductTitleIsNullInUpdateProductInputModel();
+
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(
+            async () =>
+            {
+                await ProductService.UpdateProductAsync(invalidUpdateProductInputModel).ConfigureAwait(false);
+            });
+
+            exception.Message.Should().Be("Product Title must not be empty (Parameter 'productTitle')");
+        }
+
+        #endregion [ UpdateProductAsync ]
     }
 }

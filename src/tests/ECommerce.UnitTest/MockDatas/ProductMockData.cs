@@ -60,7 +60,22 @@ namespace ECommerce.UnitTest.MockDatas
 
         public static UpdateProductInputModel ValidUpdateProductInputModel()
             => new Faker<UpdateProductInputModel>()
-              .RuleFor(bp => bp.ProductId, f => f.Random.Number(1,50))
+              .RuleFor(bp => bp.ProductId, f => f.Random.Number(1,5))
+              .RuleFor(bp => bp.ProductName, f => f.Name.FirstName())
+              .RuleFor(bp => bp.ProductTitle, f => f.Name.JobTitle())
+              .RuleFor(bp => bp.ProductDescription, f => f.Name.JobDescriptor())
+              .RuleFor(bp => bp.ProductCategory, f => f.Random.Enum<ProductCategory>())
+              .RuleFor(bp => bp.MainImageName, f => f.Name.FullName())
+              .RuleFor(bp => bp.MainImageTitle, f => f.Name.FullName())
+              .RuleFor(bp => bp.MainImageUri, f => f.Name.FullName())
+              .RuleFor(bp => bp.Color, f => f.Random.Enum<ProductColor>())
+              .RuleFor(bp => bp.IsFreeDelivery, f => f.Random.Bool())
+              .RuleFor(bp => bp.IsExisting, f => f.Random.Bool())
+              .RuleFor(bp => bp.Weight, f => f.Random.Number());
+
+        public static UpdateProductInputModel InValidProductIdInUpdateProductInputModel()
+            => new Faker<UpdateProductInputModel>()
+              .RuleFor(bp => bp.ProductId, f => f.Random.Number(5, 20))
               .RuleFor(bp => bp.ProductName, f => f.Name.FirstName())
               .RuleFor(bp => bp.ProductTitle, f => f.Name.JobTitle())
               .RuleFor(bp => bp.ProductDescription, f => f.Name.JobDescriptor())
