@@ -4,11 +4,11 @@ namespace ECommerce.Domain.Products
 {
     public interface IProductReadRepository
     {
-        Task<ProductDto> GetProduct(int productId);
+        Task<ProductDto> GetProductAsync(int productId);
         
-        Task<IEnumerable<ProductDto>> GetProducts();
+        Task<IEnumerable<ProductDto>> GetProductsAsync();
 
-        Task<bool> IsExistProduct(int productId);
+        Task<bool> IsExistProductAsync(int productId);
 
     }
 }
