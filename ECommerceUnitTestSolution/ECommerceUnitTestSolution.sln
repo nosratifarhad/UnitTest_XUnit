@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Infra", "ECommerc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{45353EEE-0251-46A2-8FFB-F05F9C847BB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.UnitTest", "tests\ECommerce.UnitTest\ECommerce.UnitTest.csproj", "{A12F3A94-765F-4D42-8C74-EC52FC1FBA64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,9 +37,16 @@ Global
 		{899FDEB2-24D1-43A4-98A5-F4088BB1FF39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{899FDEB2-24D1-43A4-98A5-F4088BB1FF39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{899FDEB2-24D1-43A4-98A5-F4088BB1FF39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A12F3A94-765F-4D42-8C74-EC52FC1FBA64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A12F3A94-765F-4D42-8C74-EC52FC1FBA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A12F3A94-765F-4D42-8C74-EC52FC1FBA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A12F3A94-765F-4D42-8C74-EC52FC1FBA64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A12F3A94-765F-4D42-8C74-EC52FC1FBA64} = {45353EEE-0251-46A2-8FFB-F05F9C847BB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {214DEE6D-759E-406D-AC5F-5005A1379AC7}
