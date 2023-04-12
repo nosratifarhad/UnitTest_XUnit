@@ -1,16 +1,15 @@
 using ECommerce.Domain.Products;
 using ECommerce.Service.Services;
-using Moq;
-using FluentAssertions;
 using ECommerce.Domain.Products.Dtos.ProductDtos;
 using ECommerce.UnitTest.MockDatas;
 using ECommerce.Domain.Products.Entitys;
+using FluentAssertions;
+using Moq;
 
 namespace ECommerce.UnitTest.TestServices
 {
     public class ProductServiceUnitTest
     {
-
         #region [ GetProductAsync ]
 
         [Theory]
@@ -324,5 +323,73 @@ namespace ECommerce.UnitTest.TestServices
         }
 
         #endregion [ UpdateProductAsync ]
+
+        #region [ DeleteProductAsync ]
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        public async void When_ValidProductIdInDeleteProductAsync_Then_RemoveFromDataBase(int productId)
+        {
+            var MoqProductReadRepository = new Mock<IProductReadRepository>();
+            var MoqProductWriteRepository = new Mock<IProductWriteRepository>();
+
+            MoqProductReadRepository.Setup(p => p.GetProductAsync(It.IsAny<int>())).ReturnsAsync(new ProductDto());
+
+            MoqProductReadRepository.Setup(p => p.IsExistProductAsync(It.IsAny<int>())).ReturnsAsync(true);
+
+            var ProductService = new ProductService(MoqProductReadRepository.Object, MoqProductWriteRepository.Object);
+
+            await ProductService.DeleteProductAsync(productId).ConfigureAwait(false);
+
+            var productViewModel = await ProductService.GetProductAsync(productId).ConfigureAwait(false);
+
+            productViewModel.ProductId.Should().Be(0);
+            productViewModel.ProductName.Should().Be(null);
+            productViewModel.ProductTitle.Should().Be(null);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public async void When_ZeroProductIdInDeleteProductAsync_Then_ProductIdIsInValidThrowException(int productId)
+        {
+            var MoqProductReadRepository = new Mock<IProductReadRepository>();
+            var MoqProductWriteRepository = new Mock<IProductWriteRepository>();
+
+            var ProductService = new ProductService(MoqProductReadRepository.Object, MoqProductWriteRepository.Object);
+
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
+                async () =>
+                {
+                    await ProductService.DeleteProductAsync(productId).ConfigureAwait(false);
+                });
+
+            exception.Message.Should().Be("ProductId Is Invalid.");
+        }
+
+        [Theory]
+        [InlineData(8)]
+        [InlineData(9)]
+        public async void When_InValidProductIdInDeleteProductAsync_Then_ProductIdIsNotFoundThrowException(int productId)
+        {
+            var MoqProductReadRepository = new Mock<IProductReadRepository>();
+            var MoqProductWriteRepository = new Mock<IProductWriteRepository>();
+
+            MoqProductReadRepository.Setup(p => p.IsExistProductAsync(It.IsAny<int>())).ReturnsAsync(false);
+
+            var ProductService = new ProductService(MoqProductReadRepository.Object, MoqProductWriteRepository.Object);
+
+            var exception = await Assert.ThrowsAsync<ArgumentException>(
+                async () =>
+                {
+                    await ProductService.DeleteProductAsync(productId).ConfigureAwait(false);
+                });
+
+            exception.Message.Should().Be("productId Is Not Found.");
+        }
+
+        #endregion [ DeleteProductAsync ]
     }
 }
