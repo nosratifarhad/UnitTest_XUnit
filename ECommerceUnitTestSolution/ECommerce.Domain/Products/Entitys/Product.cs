@@ -10,19 +10,19 @@ namespace ECommerce.Domain.Products.Entitys
 
         public string ProductTitle { get; set; }
 
-        public string ProductDescription { get; set; }
+        public string? ProductDescription { get; set; }
 
-        public ProductCategory ProductCategory { get; set; }
+        public ProductCategory? ProductCategory { get; set; }
 
-        public string MainImageName { get; set; }
+        public string? MainImageName { get; set; }
 
-        public string MainImageTitle { get; set; }
+        public string? MainImageTitle { get; set; }
 
-        public string MainImageUri { get; set; }
+        public string? MainImageUri { get; set; }
 
         public List<ProductImage>? ImagesUri { get; set; }
 
-        public ProductColor Color { get; set; }
+        public ProductColor? Color { get; set; }
 
         public bool IsFreeDelivery { get; set; }
 
@@ -32,26 +32,24 @@ namespace ECommerce.Domain.Products.Entitys
 
         public float? OffPrice { get; set; }
 
-        public List<Material> Materials { get; set; }
+        public List<Material>? Materials { get; set; }
 
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
 
         #region Ctor
 
         public Product(
             string productName,
             string productTitle,
-            string productDescription,
-            ProductCategory productCategory,
-            string mainImageName,
-            string mainImageTitle,
-            string mainImageUri,
-            ProductColor color,
+            string? productDescription,
+            ProductCategory? productCategory,
+            string? mainImageName,
+            string? mainImageTitle,
+            string? mainImageUri,
+            ProductColor? color,
             bool isFreeDelivery,
             bool isExisting,
-            List<Material> materials,
-            int weight)
-
+            int? weight)
         {
             ProductName = productName;
             ProductTitle = productTitle;
@@ -63,7 +61,6 @@ namespace ECommerce.Domain.Products.Entitys
             Color = color;
             IsFreeDelivery = isFreeDelivery;
             IsExisting = isExisting;
-            Materials = materials;
             Weight = weight;
         }
 
@@ -71,17 +68,15 @@ namespace ECommerce.Domain.Products.Entitys
             int productId,
             string productName,
             string productTitle,
-            string productDescription,
-            ProductCategory productCategory,
-            string mainImageName,
-            string mainImageTitle,
-            string mainImageUri,
-            ProductColor color,
+            string? productDescription,
+            ProductCategory? productCategory,
+            string? mainImageName,
+            string? mainImageTitle,
+            string? mainImageUri,
+            ProductColor? color,
             bool isFreeDelivery,
             bool isExisting,
-            List<Material> materials,
-            int weight)
-
+            int? weight)
         {
             ProductId = productId;
             ProductName = productName;
@@ -94,30 +89,10 @@ namespace ECommerce.Domain.Products.Entitys
             Color = color;
             IsFreeDelivery = isFreeDelivery;
             IsExisting = isExisting;
-            Materials = materials;
             Weight = weight;
         }
 
         #endregion Ctor
 
-        #region Builder
-
-        //public Product CreateProduct(
-        //    string productName,
-        //    string productTitle,
-        //    string productDescription,
-        //    ProductCategory productCategory,
-        //    string mainImageName,
-        //    string mainImageTitle,
-        //    string mainImageUri,
-        //    ProductColor color,
-        //    bool isFreeDelivery,
-        //    List<Material> materials,
-        //    int weight)
-        //    => new Product(productName, productTitle, productDescription, productCategory,
-        //        mainImageName, mainImageTitle, mainImageUri, color,
-        //        isFreeDelivery,materials, weight);
-
-        #endregion
     }
 }

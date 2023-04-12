@@ -51,6 +51,10 @@ namespace ECommerce.Service.Services
 
         public async Task<int> CreateProductAsync(CreateProductInputModel inputModel)
         {
+            ValidateProductName(inputModel.ProductName);
+
+            ValidateProductTitle(inputModel.ProductTitle);
+
             var productEntoty = CreateProductEntityFromInputModel(inputModel);
 
             return await _productWriteRepository.CreateProductAsync(productEntoty).ConfigureAwait(false);
@@ -58,6 +62,10 @@ namespace ECommerce.Service.Services
 
         public async Task UpdateProductAsync(UpdateProductInputModel inputModel)
         {
+            ValidateProductName(inputModel.ProductName);
+
+            ValidateProductTitle(inputModel.ProductTitle);
+
             await IsExistProduct(inputModel.ProductId).ConfigureAwait(false);
 
             var productEntoty = CreateProductEntityFromInputModel(inputModel);
@@ -82,10 +90,10 @@ namespace ECommerce.Service.Services
         }
 
         private Product CreateProductEntityFromInputModel(CreateProductInputModel inputModel)
-            => new Product(inputModel.ProductName, inputModel.ProductTitle, inputModel.ProductDescription, inputModel.ProductCategory, inputModel.MainImageName, inputModel.MainImageTitle, inputModel.MainImageUri, inputModel.Color, inputModel.IsExisting, inputModel.IsFreeDelivery, inputModel.Materials, inputModel.Weight);
+            => new Product(inputModel.ProductName, inputModel.ProductTitle, inputModel.ProductDescription, inputModel.ProductCategory, inputModel.MainImageName, inputModel.MainImageTitle, inputModel.MainImageUri, inputModel.Color, inputModel.IsExisting, inputModel.IsFreeDelivery, inputModel.Weight);
 
         private Product CreateProductEntityFromInputModel(UpdateProductInputModel inputModel)
-            => new Product(inputModel.ProductId, inputModel.ProductName, inputModel.ProductTitle, inputModel.ProductDescription, inputModel.ProductCategory, inputModel.MainImageName, inputModel.MainImageTitle, inputModel.MainImageUri, inputModel.Color, inputModel.IsExisting, inputModel.IsFreeDelivery, inputModel.Materials, inputModel.Weight);
+            => new Product(inputModel.ProductId, inputModel.ProductName, inputModel.ProductTitle, inputModel.ProductDescription, inputModel.ProductCategory, inputModel.MainImageName, inputModel.MainImageTitle, inputModel.MainImageUri, inputModel.Color, inputModel.IsExisting, inputModel.IsFreeDelivery, inputModel.Weight);
 
         private ProductViewModel CreateProductViewModelFromProductDto(ProductDto dto)
             => new ProductViewModel()
@@ -129,6 +137,18 @@ namespace ECommerce.Service.Services
 
 
             return (IEnumerable<ProductViewModel>)productViewModels;
+        }
+
+        private void ValidateProductName(string productName)
+        {
+            if (string.IsNullOrEmpty(productName) || string.IsNullOrWhiteSpace(productName))
+                throw new ArgumentNullException(nameof(productName), "Product Name must not be empty");
+        }
+
+        private void ValidateProductTitle(string productTitle)
+        {
+            if (string.IsNullOrEmpty(productTitle) || string.IsNullOrWhiteSpace(productTitle))
+                throw new ArgumentNullException(nameof(productTitle), "Product Title must not be empty");
         }
 
         #endregion Private

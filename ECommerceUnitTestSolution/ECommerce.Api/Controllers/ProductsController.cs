@@ -25,7 +25,7 @@ namespace ECommerce.Api.Controllers
         /// Get Product List
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/v1/products")]
+        [HttpGet("/api/products")]
         public async Task<IActionResult> GetProducts()
         {
             var productVMs = await _productService.GetProducts().ConfigureAwait(false);
@@ -38,12 +38,12 @@ namespace ECommerce.Api.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPost("/api/v1/product")]
+        [HttpPost("/api/product")]
         public async Task<IActionResult> CreateProduct(CreateProductInputModel inputModel)
         {
             int productId = await _productService.CreateProductAsync(inputModel).ConfigureAwait(false);
 
-            return CreatedAtRoute(nameof(GetProduct), new { ProductId = productId });
+            return CreatedAtRoute(nameof(GetProduct), new { productId = productId }, new { ProductId = productId });
         }
 
         /// <summary>
@@ -51,10 +51,10 @@ namespace ECommerce.Api.Controllers
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        [HttpGet("/api/v1/product/{productId:int}", Name = nameof(GetProduct))]
+        [HttpGet("/api/product/{productId:int}", Name = nameof(GetProduct))]
         public async Task<IActionResult> GetProduct(int productId)
         {
-            var product = _productService.GetProduct(productId).ConfigureAwait(false);
+            var product =await _productService.GetProduct(productId).ConfigureAwait(false);
 
             return Ok(product);
         }
@@ -65,7 +65,7 @@ namespace ECommerce.Api.Controllers
         /// <param name="productId"></param>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPut("/api/v1/product/{productId:int}")]
+        [HttpPut("/api/product/{productId:int}")]
         public async Task<IActionResult> UpdateProduct(int productId, UpdateProductInputModel inputModel)
         {
             if (productId != inputModel.ProductId)
@@ -81,7 +81,7 @@ namespace ECommerce.Api.Controllers
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        [HttpDelete("/api/v1/product/{productId:int}")]
+        [HttpDelete("/api/product/{productId:int}")]
         public async Task<IActionResult> DeleteProduct(int productId)
         {
             await _productService.DeleteProductAsync(productId).ConfigureAwait(false);
