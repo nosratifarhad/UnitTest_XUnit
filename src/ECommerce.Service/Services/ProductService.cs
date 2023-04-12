@@ -81,6 +81,9 @@ namespace ECommerce.Service.Services
 
         public async Task DeleteProductAsync(int productId)
         {
+            if (productId <= 0)
+                throw new ArgumentException("ProductId Is Invalid.");
+
             await IsExistProduct(productId).ConfigureAwait(false);
 
             await _productWriteRepository.DeleteProductAsync(productId).ConfigureAwait(false);
