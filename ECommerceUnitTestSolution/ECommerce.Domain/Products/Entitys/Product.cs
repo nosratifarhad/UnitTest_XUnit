@@ -18,13 +18,15 @@ namespace ECommerce.Domain.Products.Entitys
 
         public string MainImageUri { get; set; }
 
-        public List<ProductImage> ImagesUri { get; set; }
+        public List<ProductImage>? ImagesUri { get; set; }
 
         public ProductColor Color { get; set; }
 
         public bool IsFreeDelivery { get; set; }
 
-        public float Price { get; set; }
+        public bool IsExisting { get; set; }
+
+        public float? Price { get; set; }
 
         public float? OffPrice { get; set; }
 
@@ -42,11 +44,8 @@ namespace ECommerce.Domain.Products.Entitys
             string mainImageName,
             string mainImageTitle,
             string mainImageUri,
-            List<ProductImage> imagesUri,
             ProductColor color,
             bool isFreeDelivery,
-            float price,
-            float offPrice,
             List<Material> materials,
             int weight)
 
@@ -58,10 +57,8 @@ namespace ECommerce.Domain.Products.Entitys
             MainImageName = mainImageName;
             MainImageTitle = mainImageTitle;
             MainImageUri = mainImageUri;
-            ImagesUri = imagesUri;
             Color = color;
             IsFreeDelivery = isFreeDelivery;
-            Price = price;
             Materials = materials;
             Weight = weight;
         }
@@ -78,16 +75,13 @@ namespace ECommerce.Domain.Products.Entitys
             string mainImageName,
             string mainImageTitle,
             string mainImageUri,
-            List<ProductImage> imagesUri,
             ProductColor color,
             bool isFreeDelivery,
-            float price,
-            float offPrice,
             List<Material> materials,
             int weight)
             => new Product(productName, productTitle, productDescription, productCategory,
-                mainImageName, mainImageTitle, mainImageUri, imagesUri, color,
-                isFreeDelivery, price, offPrice, materials, weight);
+                mainImageName, mainImageTitle, mainImageUri, color,
+                isFreeDelivery,materials, weight);
 
         #endregion
     }
