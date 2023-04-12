@@ -4,6 +4,8 @@ namespace ECommerce.Domain.Products.Entitys
 {
     public class Product
     {
+        public int ProductId { get; set; }
+
         public string ProductName { get; set; }
 
         public string ProductTitle { get; set; }
@@ -46,6 +48,7 @@ namespace ECommerce.Domain.Products.Entitys
             string mainImageUri,
             ProductColor color,
             bool isFreeDelivery,
+            bool isExisting,
             List<Material> materials,
             int weight)
 
@@ -59,6 +62,38 @@ namespace ECommerce.Domain.Products.Entitys
             MainImageUri = mainImageUri;
             Color = color;
             IsFreeDelivery = isFreeDelivery;
+            IsExisting = isExisting;
+            Materials = materials;
+            Weight = weight;
+        }
+
+        public Product(
+            int productId,
+            string productName,
+            string productTitle,
+            string productDescription,
+            ProductCategory productCategory,
+            string mainImageName,
+            string mainImageTitle,
+            string mainImageUri,
+            ProductColor color,
+            bool isFreeDelivery,
+            bool isExisting,
+            List<Material> materials,
+            int weight)
+
+        {
+            ProductId = productId;
+            ProductName = productName;
+            ProductTitle = productTitle;
+            ProductDescription = productDescription;
+            ProductCategory = productCategory;
+            MainImageName = mainImageName;
+            MainImageTitle = mainImageTitle;
+            MainImageUri = mainImageUri;
+            Color = color;
+            IsFreeDelivery = isFreeDelivery;
+            IsExisting = isExisting;
             Materials = materials;
             Weight = weight;
         }
