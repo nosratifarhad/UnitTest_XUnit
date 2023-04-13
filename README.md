@@ -37,10 +37,12 @@ public async void When_ValidProductIdInGetProductAsync_Then_ReturnedProductViewM
 
    var productViewModel = await productReadRepository.GetProductAsync(productId).ConfigureAwait(false);
 
-  - [ ] productViewModel.ProductId.Should().Be(productId);
-  - [ ] productViewModel.ProductName.Should().NotBeNull();
-  - [ ] productViewModel.ProductTitle.Should().NotBeNull();
-  - [ ] productViewModel.Should().NotBeNull();
+   //Assert Test Use FluentAssertions
+   productViewModel.ProductId.Should().Be(productId);
+   productViewModel.ProductName.Should().NotBeNull();
+   productViewModel.ProductTitle.Should().NotBeNull();
+   productViewModel.Should().NotBeNull();
+   //Assert Test Use FluentAssertions
 }
 
 ```
