@@ -4,7 +4,7 @@
 
 ### User Bogus For Generate Fake Data In MockDatas Like This
 
-```cshrp
+```csharp
 
 private static ProductDto CreateFakerProductDto(int productId)
    => new Faker<ProductDto>()
@@ -21,7 +21,7 @@ private static ProductDto CreateFakerProductDto(int productId)
       .RuleFor(bp => bp.IsExisting, f => f.Random.Bool())
       .RuleFor(bp => bp.Weight, f => f.Random.Number());
 
-```cshrp
+```csharp
 
 ### And Use FluentAssertions For Handle Assert Tests Like This
 Note : You can See Excample Project In [This Repository](https://github.com/nosratifarhad/FluentValidation.git/).
