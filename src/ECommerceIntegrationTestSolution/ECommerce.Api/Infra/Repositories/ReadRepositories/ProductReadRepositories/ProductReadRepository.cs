@@ -3,7 +3,7 @@ using ECommerce.Api.Domain;
 using ECommerce.Api.Domain.Entitys;
 using ECommerce.Api.Domain.Enums;
 
-namespace ECommerce.Api.Infra.Properties.ReadRepositories.ProductReadRepositories
+namespace ECommerce.Api.Infra.Repositories.ReadRepositories.ProductReadRepositories
 {
     public class ProductReadRepository : IProductReadRepository
     {
@@ -34,7 +34,7 @@ namespace ECommerce.Api.Infra.Properties.ReadRepositories.ProductReadRepositorie
         private static Product CreateFakerProduct(int productId)
             => new Faker<Product>().CustomInstantiator(f
                 => new Product(
-                    productId, 
+                    productId,
                     f.Name.FirstName(),
                     f.Name.JobTitle(),
                     f.Name.JobDescriptor(),
@@ -50,7 +50,7 @@ namespace ECommerce.Api.Infra.Properties.ReadRepositories.ProductReadRepositorie
         private static List<Product> CreateFakerProducts()
           => new Faker<Product>().CustomInstantiator(f
                 => new Product(
-                    f.Random.Number(1,5),
+                    f.Random.Number(1, 5),
                     f.Name.FirstName(),
                     f.Name.JobTitle(),
                     f.Name.JobDescriptor(),
