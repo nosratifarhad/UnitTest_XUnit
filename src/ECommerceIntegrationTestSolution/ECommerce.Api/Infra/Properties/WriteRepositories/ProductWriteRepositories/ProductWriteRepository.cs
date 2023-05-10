@@ -1,8 +1,8 @@
 ﻿using Bogus;
-using ECommerce.Domain.Products;
-using ECommerce.Domain.Products.Entitys;
+using ECommerce.Api.Domain;
+using ECommerce.Api.Domain.Entitys;
 
-namespace ECommerce.Infra.Repositorys
+namespace ECommerce.Api.Infra.Properties.WriteRepositories.ProductWriteRepositories
 {
     public class ProductWriteRepository : IProductWriteRepository
     {

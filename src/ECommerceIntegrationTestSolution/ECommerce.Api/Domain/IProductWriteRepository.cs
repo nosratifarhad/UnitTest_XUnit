@@ -1,6 +1,6 @@
-﻿using ECommerce.Domain.Products.Entitys;
+﻿using ECommerce.Api.Domain.Entitys;
 
-namespace ECommerce.Domain.Products
+namespace ECommerce.Api.Domain
 {
     public interface IProductWriteRepository
     {

@@ -1,10 +1,9 @@
-using ECommerce.Domain.Products;
-using ECommerce.Service.Services;
-using ECommerce.Domain.Products.Dtos.ProductDtos;
 using ECommerce.UnitTest.MockDatas;
-using ECommerce.Domain.Products.Entitys;
 using FluentAssertions;
 using Moq;
+using ECommerce.Api.Domain.Entitys;
+using ECommerce.Api.Domain;
+using ECommerce.Api.Services;
 
 namespace ECommerce.UnitTest.TestServices
 {
@@ -22,12 +21,7 @@ namespace ECommerce.UnitTest.TestServices
             var moqProductWriteRepository = new Mock<IProductWriteRepository>();
 
             moqProductReadRepository.Setup(p => p.GetProductAsync(It.IsAny<int>()))
-                .ReturnsAsync(new ProductDto()
-                {
-                    ProductId = productId,
-                    ProductName = "test",
-                    ProductTitle = "tst"
-                });
+                .ReturnsAsync(new Product(productId, "name", "title", "des", 0, "test", "test", "test", 0, true, true, 0));
 
             var productService = new ProductService(moqProductReadRepository.Object, moqProductWriteRepository.Object);
 
@@ -49,7 +43,7 @@ namespace ECommerce.UnitTest.TestServices
             var moqProductWriteRepository = new Mock<IProductWriteRepository>();
 
             moqProductReadRepository.Setup(p => p.GetProductAsync(It.IsAny<int>()))
-                .ReturnsAsync(new ProductDto());
+                .ReturnsAsync((Product)(null));
 
             var productService = new ProductService(moqProductReadRepository.Object, moqProductWriteRepository.Object);
 
@@ -90,7 +84,7 @@ namespace ECommerce.UnitTest.TestServices
             var moqProductWriteRepository = new Mock<IProductWriteRepository>();
 
             moqProductReadRepository.Setup(p => p.GetProductsAsync())
-                .ReturnsAsync(new List<ProductDto>());
+                .ReturnsAsync(new List<Product>());
 
             var productService = new ProductService(moqProductReadRepository.Object, moqProductWriteRepository.Object);
 
@@ -107,7 +101,13 @@ namespace ECommerce.UnitTest.TestServices
             var moqProductWriteRepository = new Mock<IProductWriteRepository>();
 
             moqProductReadRepository.Setup(p => p.GetProductsAsync())
-                .ReturnsAsync(new List<ProductDto>() { new ProductDto(), new ProductDto(), new ProductDto(), new ProductDto(), new ProductDto() });
+                .ReturnsAsync(new List<Product>() {
+                    new Product(string.Empty, string.Empty, string.Empty, 0, string.Empty, string.Empty, string.Empty, 0, true, false, 0),
+                    new Product(string.Empty, string.Empty, string.Empty, 0, string.Empty, string.Empty, string.Empty, 0, true, false, 0),
+                    new Product(string.Empty, string.Empty, string.Empty, 0, string.Empty, string.Empty, string.Empty, 0, true, false, 0),
+                    new Product(string.Empty, string.Empty, string.Empty, 0, string.Empty, string.Empty, string.Empty, 0, true, false, 0),
+                    new Product(string.Empty, string.Empty, string.Empty, 0, string.Empty, string.Empty, string.Empty, 0, true, false, 0),
+                    });
 
             var productService = new ProductService(moqProductReadRepository.Object, moqProductWriteRepository.Object);
 
@@ -192,19 +192,25 @@ namespace ECommerce.UnitTest.TestServices
 
             moqProductReadRepository.Setup(p => p.GetProductAsync(It.IsAny<int>()))
                 .ReturnsAsync(
-                new ProductDto() 
-                { 
-                    ProductId = validUpdateProductInputModel.ProductId ,
-                    ProductName = validUpdateProductInputModel.ProductName ,
-                    ProductTitle = validUpdateProductInputModel.ProductTitle ,
-                });
+                new Product(
+                    validUpdateProductInputModel.ProductId,
+                    validUpdateProductInputModel.ProductName,
+                    validUpdateProductInputModel.ProductTitle,
+                    validUpdateProductInputModel.ProductDescription,
+                    validUpdateProductInputModel.ProductCategory,
+                    validUpdateProductInputModel.MainImageName,
+                    validUpdateProductInputModel.MainImageTitle,
+                    validUpdateProductInputModel.MainImageUri,
+                    validUpdateProductInputModel.Color,
+                    validUpdateProductInputModel.IsFreeDelivery,
+                    validUpdateProductInputModel.IsExisting,
+                    validUpdateProductInputModel.Weight));
 
             moqProductReadRepository.Setup(p => p.IsExistProductAsync(It.IsAny<int>())).ReturnsAsync(true);
-                
+
             moqProductWriteRepository.Setup(p => p.UpdateProductAsync(It.IsAny<Product>()));
 
             var productService = new ProductService(moqProductReadRepository.Object, moqProductWriteRepository.Object);
-
 
             await productService.UpdateProductAsync(validUpdateProductInputModel).ConfigureAwait(false);
 
@@ -228,7 +234,7 @@ namespace ECommerce.UnitTest.TestServices
             var productService = new ProductService(moqProductReadRepository.Object, moqProductWriteRepository.Object);
 
             var invalidUpdateProductInputModel = ProductMockData.InValidProductIdInUpdateProductInputModel();
- 
+
             var exception = await Assert.ThrowsAsync<ArgumentException>(
                 async () =>
                 {
@@ -335,7 +341,8 @@ namespace ECommerce.UnitTest.TestServices
             var moqProductReadRepository = new Mock<IProductReadRepository>();
             var moqProductWriteRepository = new Mock<IProductWriteRepository>();
 
-            moqProductReadRepository.Setup(p => p.GetProductAsync(It.IsAny<int>())).ReturnsAsync(new ProductDto());
+            moqProductReadRepository.Setup(p => p.GetProductAsync(It.IsAny<int>()))
+                .ReturnsAsync((Product)(null));
 
             moqProductReadRepository.Setup(p => p.IsExistProductAsync(It.IsAny<int>())).ReturnsAsync(true);
 

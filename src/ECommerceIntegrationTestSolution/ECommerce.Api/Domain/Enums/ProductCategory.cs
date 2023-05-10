@@ -1,4 +1,4 @@
-﻿namespace ECommerce.Domain.Products.Enums
+﻿namespace ECommerce.Api.Domain.Enums
 {
     public enum ProductCategory
     {

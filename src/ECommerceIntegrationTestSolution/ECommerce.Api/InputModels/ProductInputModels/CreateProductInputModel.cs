@@ -1,5 +1,4 @@
-﻿using ECommerce.Domain.Products.Entitys;
-using ECommerce.Domain.Products.Enums;
+﻿using ECommerce.Api.Domain.Enums;
 
 namespace ECommerce.Service.InputModels.ProductInputModels
 {
