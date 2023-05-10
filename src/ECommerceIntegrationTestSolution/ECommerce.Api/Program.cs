@@ -1,6 +1,6 @@
 using ECommerce.Api.Domain;
-using ECommerce.Api.Infra.Properties.ReadRepositories.ProductReadRepositories;
-using ECommerce.Api.Infra.Properties.WriteRepositories.ProductWriteRepositories;
+using ECommerce.Api.Infra.Repositories.ReadRepositories.ProductReadRepositories;
+using ECommerce.Api.Infra.Repositories.WriteRepositories.ProductWriteRepositories;
 using ECommerce.Api.Services;
 using ECommerce.Api.Services.Contract;
 

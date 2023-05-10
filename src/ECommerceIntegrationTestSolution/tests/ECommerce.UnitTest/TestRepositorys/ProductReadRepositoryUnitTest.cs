@@ -1,4 +1,4 @@
-﻿using ECommerce.Api.Infra.Properties.ReadRepositories.ProductReadRepositories;
+﻿using ECommerce.Api.Infra.Repositories.ReadRepositories.ProductReadRepositories;
 using FluentAssertions;
 
 namespace ECommerce.UnitTest.TestRepositorys
