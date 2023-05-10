@@ -1,4 +1,4 @@
-﻿using ECommerce.Domain.Products.Enums;
+﻿using ECommerce.Api.Domain.Enums;
 
 namespace ECommerce.Service.ViewModels.ProductViewModels
 {

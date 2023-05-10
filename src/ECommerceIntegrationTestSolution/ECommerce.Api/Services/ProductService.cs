@@ -1,11 +1,10 @@
-﻿using ECommerce.Domain.Products;
-using ECommerce.Domain.Products.Dtos.ProductDtos;
-using ECommerce.Domain.Products.Entitys;
-using ECommerce.Service.Contract;
+﻿using ECommerce.Api.Domain;
+using ECommerce.Api.Domain.Entitys;
+using ECommerce.Api.Services.Contract;
 using ECommerce.Service.InputModels.ProductInputModels;
 using ECommerce.Service.ViewModels.ProductViewModels;
 
-namespace ECommerce.Service.Services
+namespace ECommerce.Api.Services
 {
     public class ProductService : IProductService
     {
@@ -31,23 +30,23 @@ namespace ECommerce.Service.Services
             if (productId <= 0)
                 throw new ArgumentException("Product Id Is Invalid");
 
-            var productDto = await _productReadRepository.GetProductAsync(productId).ConfigureAwait(false);
-            if (productDto == null)
+            var product = await _productReadRepository.GetProductAsync(productId).ConfigureAwait(false);
+            if (product == null)
                 return new ProductViewModel();
 
-            var productViewModel = CreateProductViewModelFromProductDto(productDto);
+            var productViewModel = CreateProductViewModelFromProduct(product);
 
             return productViewModel;
         }
 
         public async Task<IEnumerable<ProductViewModel>> GetProductsAsync()
         {
-            var productDtos = await _productReadRepository.GetProductsAsync().ConfigureAwait(false);
+            var products = await _productReadRepository.GetProductsAsync().ConfigureAwait(false);
 
-            if (productDtos == null || productDtos.Count() == 0)
+            if (products == null || products.Count() == 0)
                 return Enumerable.Empty<ProductViewModel>();
 
-            var productViewModels = CreateProductViewModelsFromProductDtos(productDtos);
+            var productViewModels = CreateProductViewModelsFromProducts(products);
 
             return productViewModels;
         }
@@ -58,9 +57,9 @@ namespace ECommerce.Service.Services
 
             ValidateProductTitle(inputModel.ProductTitle);
 
-            var productEntoty = CreateProductEntityFromInputModel(inputModel);
+            var product= CreateProductEntityFromInputModel(inputModel);
 
-            return await _productWriteRepository.CreateProductAsync(productEntoty).ConfigureAwait(false);
+            return await _productWriteRepository.CreateProductAsync(product).ConfigureAwait(false);
         }
 
         public async Task UpdateProductAsync(UpdateProductInputModel inputModel)
@@ -106,48 +105,48 @@ namespace ECommerce.Service.Services
         private Product CreateProductEntityFromInputModel(UpdateProductInputModel inputModel)
             => new Product(inputModel.ProductId, inputModel.ProductName, inputModel.ProductTitle, inputModel.ProductDescription, inputModel.ProductCategory, inputModel.MainImageName, inputModel.MainImageTitle, inputModel.MainImageUri, inputModel.Color, inputModel.IsExisting, inputModel.IsFreeDelivery, inputModel.Weight);
 
-        private ProductViewModel CreateProductViewModelFromProductDto(ProductDto dto)
+        private ProductViewModel CreateProductViewModelFromProduct(Product product)
             => new ProductViewModel()
             {
-                ProductId = dto.ProductId,
-                ProductName = dto.ProductName,
-                ProductTitle = dto.ProductTitle,
-                ProductDescription = dto.ProductDescription,
-                ProductCategory = dto.ProductCategory,
-                MainImageName = dto.MainImageName,
-                MainImageTitle = dto.MainImageTitle,
-                MainImageUri = dto.MainImageUri,
-                Color = dto.Color,
-                IsExisting = dto.IsExisting,
-                IsFreeDelivery = dto.IsFreeDelivery,
-                Weight = dto.Weight
+                ProductId = product.ProductId,
+                ProductName = product.ProductName,
+                ProductTitle = product.ProductTitle,
+                ProductDescription = product.ProductDescription,
+                ProductCategory = product.ProductCategory,
+                MainImageName = product.MainImageName,
+                MainImageTitle = product.MainImageTitle,
+                MainImageUri = product.MainImageUri,
+                Color = product.Color,
+                IsExisting = product.IsExisting,
+                IsFreeDelivery = product.IsFreeDelivery,
+                Weight = product.Weight
             };
 
-        private IEnumerable<ProductViewModel> CreateProductViewModelsFromProductDtos(IEnumerable<ProductDto> dtos)
+        private IEnumerable<ProductViewModel> CreateProductViewModelsFromProducts(IEnumerable<Product> products)
         {
             ICollection<ProductViewModel> productViewModels = new List<ProductViewModel>();
 
-            foreach (var ProductDto in dtos)
+            foreach (var Product in products)
                 productViewModels.Add(
                      new ProductViewModel()
                      {
 
-                         ProductId = ProductDto.ProductId,
-                         ProductName = ProductDto.ProductName,
-                         ProductTitle = ProductDto.ProductTitle,
-                         ProductDescription = ProductDto.ProductDescription,
-                         ProductCategory = ProductDto.ProductCategory,
-                         MainImageName = ProductDto.MainImageName,
-                         MainImageTitle = ProductDto.MainImageTitle,
-                         MainImageUri = ProductDto.MainImageUri,
-                         Color = ProductDto.Color,
-                         IsExisting = ProductDto.IsExisting,
-                         IsFreeDelivery = ProductDto.IsFreeDelivery,
-                         Weight = ProductDto.Weight
+                         ProductId = Product.ProductId,
+                         ProductName = Product.ProductName,
+                         ProductTitle = Product.ProductTitle,
+                         ProductDescription = Product.ProductDescription,
+                         ProductCategory = Product.ProductCategory,
+                         MainImageName = Product.MainImageName,
+                         MainImageTitle = Product.MainImageTitle,
+                         MainImageUri = Product.MainImageUri,
+                         Color = Product.Color,
+                         IsExisting = Product.IsExisting,
+                         IsFreeDelivery = Product.IsFreeDelivery,
+                         Weight = Product.Weight
                      });
 
 
-            return (IEnumerable<ProductViewModel>)productViewModels;
+            return productViewModels;
         }
 
         private void ValidateProductName(string productName)

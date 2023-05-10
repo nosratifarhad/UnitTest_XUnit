@@ -1,7 +1,4 @@
-﻿using ECommerce.Domain.Products.Dtos.ProductDtos;
-using ECommerce.Domain.Products;
-using Moq;
-using ECommerce.Infra.Repositorys;
+﻿using ECommerce.Api.Infra.Properties.ReadRepositories.ProductReadRepositories;
 using FluentAssertions;
 
 namespace ECommerce.UnitTest.TestRepositorys
@@ -36,10 +33,7 @@ namespace ECommerce.UnitTest.TestRepositorys
 
             var productViewModel = await productReadRepository.GetProductAsync(productId).ConfigureAwait(false);
 
-            productViewModel.ProductId.Should().Be(0);
-            productViewModel.ProductName.Should().BeNull();
-            productViewModel.ProductTitle.Should().BeNull();
-            productViewModel.Should().NotBeNull();
+            productViewModel.Should().BeNull();
         }
 
         #endregion [ GetProductAsync ]

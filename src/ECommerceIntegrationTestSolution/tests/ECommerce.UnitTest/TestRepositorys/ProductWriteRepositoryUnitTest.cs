@@ -1,4 +1,4 @@
-﻿using ECommerce.Infra.Repositorys;
+﻿using ECommerce.Api.Infra.Properties.WriteRepositories.ProductWriteRepositories;
 using ECommerce.UnitTest.MockDatas;
 using FluentAssertions;
 

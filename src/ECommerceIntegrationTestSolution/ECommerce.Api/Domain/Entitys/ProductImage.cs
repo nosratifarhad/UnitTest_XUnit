@@ -1,4 +1,4 @@
-﻿namespace ECommerce.Domain.Products.Entitys
+﻿namespace ECommerce.Api.Domain.Entitys
 {
     public class ProductImage
     {
